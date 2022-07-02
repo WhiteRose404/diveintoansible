@@ -1,0 +1,14 @@
+[centos]
+centos1 ansible_become=true ansible_become_pass=password
+centos2
+centos3
+[ubuntu]
+ubuntu1 
+for i in 1 2 3
+do
+        echo centos${i} >> hosts
+done
+
+
+ubuntu2
+ubuntu3
