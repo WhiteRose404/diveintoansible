@@ -1,0 +1,11 @@
+---
+
+- 
+  hosts: linux 
+
+
+  tasks:
+    - name: restart NGINX
+      debug:
+        msg: "{{ ansible_host }}"
+...

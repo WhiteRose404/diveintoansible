@@ -32,10 +32,11 @@
       notify: Check HTTP Service
 
     - name: Template index.html-base.j2 to index.html on target
-      template:
-        src: index.html-base.j2
+      file:
+        src: ./files/playbook_stacker
         dest: "{{ nginx_root_location }}/index.html"
-        mode: 0644
+        state: hard
+        mode: preserved
 
   # Handlers: the list of handlers that are executed as a notify key from a task
   handlers:

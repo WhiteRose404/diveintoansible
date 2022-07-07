@@ -1,0 +1,42 @@
+---
+-
+  hosts: linux
+
+
+  tasks:
+    - name: copy the facts to the remote machines--create the file
+      file:
+        path: /etc/ansible/facts.d
+        recurse: yes
+        state: directory
+
+    - name: copy the first sh
+      copy:
+        src: /etc/ansible/facts.d/getdate1.fact
+        dest: /etc/ansible/facts.d/getdate1.fact
+        mode: 0744
+    - name: copy the second sh
+      copy:
+        src: /etc/ansible/facts.d/getdate2.fact
+        dest: /etc/ansible/facts.d/getdate2.fact
+        mode: 0744
+
+    - name: update the facts
+      setup:
+
+
+    - name: show the costum fact on each machine
+      debug:
+        msg: "{{ ansible_local }}"
+
+    - name: remove the costume facts1
+      file:
+        path: /etc/ansible/facts.d/getdate1.fact
+        state: absent
+    - name: remove the costume facts2
+      file:
+        path: /etc/ansible/facts.d/getdate2.fact
+        state: absent
+
+
+...

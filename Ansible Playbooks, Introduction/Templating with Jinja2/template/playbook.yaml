@@ -1,0 +1,19 @@
+---
+
+- 
+   hosts: linux
+   gather_facts: false
+
+   tasks:
+     - 
+       name: OBAY
+       debug:
+         msg: |
+           {% for i in range(1,11)%}
+             {% if i%2==0 -%}
+               {{ i }} is my my
+             {% endif %}
+           {% endfor %}
+
+
+...

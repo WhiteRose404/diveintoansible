@@ -1,0 +1,44 @@
+---
+
+- 
+  hosts: linux
+
+  tasks:
+    - name: install Epel     
+      dnf:
+        name: epel-release
+        state: latest
+        update_cache: yes
+      when: ansible_distribution=="CentOS"
+
+    - name: install NGINX
+      package:
+        name: nginx
+        state: latest
+
+    - name: restart NGINX
+      service:
+        name: nginx
+        state: restarted
+      notify: Check Http requests
+
+
+    - name: make a directory
+      file:
+        state: directory
+        path: /var/www/html
+
+    - name: using Jinja2
+      template:
+        src: index_src-base.html.j2
+        dest: "{{ nginx_root_location  }}/index.html"
+        mode: 0644
+
+
+
+  handlers:
+    - name: Check Http requests
+      uri:
+        url: http://{{ ansible_default_ipv4.address }}
+        status_code: 200
+...
